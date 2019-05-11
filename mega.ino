@@ -12,7 +12,6 @@ int p3 = A11;
 int p4 = A10; 
 int p5 = A12;
 int p6 = A13;
-int val ;
 
 //Musical Notes 
 #define NOTE_B0  31
@@ -114,7 +113,7 @@ int melody[] = {
 
 int noteDurations[] = {
   4, 8, 8, 4,4,4,4,4 };
-  int k=1;
+  int sang_flag = 1;
 
 //Initialization of the speed of each motor and pins
 void setup()
@@ -146,8 +145,9 @@ void loop()
   cm = microsecondsToCentimeters(duration);
 
  // Reading the pin p2 (A9) related to backward motion
- if(analogRead(p2)>150)
-     {k=0; 
+ if(analogRead(p2) > 150)
+     {
+      sang_flag = 0; 
       motorA.run(BACKWARD);
       motorB.run(BACKWARD);
       motorD.run(BACKWARD);
@@ -166,6 +166,7 @@ void loop()
   // Reading the pin p3 (A10) related to left  motion
      if(analogRead(p3)>150)    
      {  
+      sang_flag = 0;
       digitalWrite(23, LOW);
       digitalWrite(47, LOW);
 
@@ -180,12 +181,12 @@ void loop()
       digitalWrite(49,LOW );             
       digitalWrite(51, LOW);   
       delay(700);   
-      k=0;
       }
     else
  // Reading the pin p4 (A11) related to right  motion
-        if(analogRead(p4)>150)    
+        if(analogRead(p4) > 150)    
         {  
+          sang_flag = 0;
           digitalWrite(49, LOW);
           digitalWrite(51, LOW);
           
@@ -200,12 +201,12 @@ void loop()
           digitalWrite(23,LOW );        
           digitalWrite(47, LOW);   
           delay(700);
-          k=0;
          }
           else
  // Reading the pin p5 (A12) for stopping the motors
             if(analogRead(p5)>150)
             {
+              sang_flag = 0;
               motorA.run(RELEASE);
               motorB.run(RELEASE);
               motorD.run(RELEASE);
@@ -222,12 +223,11 @@ void loop()
               delay(500);        
               digitalWrite(51, LOW);   
               digitalWrite(23, LOW); 
-              delay(500);            
-              k=0;
+              delay(500); 
             }
               else
  // Reading the pin p6 (A13) for singing
-                if(analogRead(p6)>200)
+                if(analogRead(p6) > 200)
                 {
                   motorA.run(RELEASE);
                   motorB.run(RELEASE);
@@ -241,17 +241,18 @@ void loop()
                   delay(500);        
                   digitalWrite(30, LOW); 
                    delay(500);   
-                   if(k==0)
-                    GameOfThrones();
-                  k=1; 
+                   if(sang_flag == 0)
+                    GameOfThrones(); 
+                  sang_flag = 1;
                 }
                  else
  // Reading the pin p1 (A14) for fowrwad motion 
-                     if(analogRead(p1)>200)
+                     if(analogRead(p1) > 200)
                      {
                       //Ultrasonic sensor check to avoid crashing
-                       if(cm<25)
+                       if(cm < 25)
                       {  
+                        sang_flag = 0;
                         motorA.run(RELEASE);
                         motorB.run(RELEASE);
                         motorD.run(RELEASE);
@@ -261,12 +262,12 @@ void loop()
                           tone(40, melody[thisNote],noteDuration);
                           int pauseBetweenNotes = noteDuration * 1.30;
                           delay(pauseBetweenNotes);
-                          noTone(8);}
-                      k=0;
+                          noTone(8);
+                          }
                       }
                         else
                            {
-                            k=0;  
+                             sang_flag = 0;  
                              motorA.run(FORWARD);
                              motorB.run(FORWARD);
                              motorD.run(FORWARD);
