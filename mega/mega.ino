@@ -183,22 +183,19 @@ void SM_StartSing()
   motorB.run(RELEASE);
   motorD.run(RELEASE);
   motorC.run(RELEASE);
-  digitalWrite(28, HIGH);   
-  delay(500);
-  digitalWrite(30, HIGH);    
-  delay(500);    
-  digitalWrite(28, LOW);      
-  delay(500);        
-  digitalWrite(30, LOW); 
-  delay(500);   
 }
 
 void SM_Sing()
 {
-  tone(40, GOT_NOTES[notePointer]);
-  delay(GOT_LENGHTS[notePointer]);
-  noTone(40);
-  notePointer++;
+  if(notePointer < GOT_Number)
+  {
+    tone(40, GOT_NOTES[notePointer]);
+    delay(GOT_LENGHTS[notePointer]);
+    noTone(40);
+    notePointer++;
+  }
+  else
+    CurrentState = Idle;
 }
 
 void loop()
@@ -230,7 +227,7 @@ void loop()
  {
     CurrentState = Idle;
  }
- else if(analogRead(p6) > 200) // Reading the pin p6 (A13) for singing
+ else if(analogRead(p6) > 150) // Reading the pin p6 (A13) for singing
  {
     if(CurrentState !=  Sing && CurrentState != Singing)
     {
@@ -239,12 +236,10 @@ void loop()
     else
       CurrentState = Singing;
  }
- else if(analogRead(p1) > 200)  // Reading the pin p1 (A14) for fowrwad motion 
+ else if(analogRead(p1) > 150)  // Reading the pin p1 (A14) for fowrwad motion 
  {
     CurrentState = Forward;
  }
- else 
-  CurrentState = Idle;
  
  runCurrentState();
 }

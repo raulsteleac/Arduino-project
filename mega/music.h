@@ -97,9 +97,9 @@ int noteDurations[] = {
   4, 8, 8, 4,4,4,4,4 };
   int sang_flag = 1;
 
-int notePointer ;
-int GOT_Number = 67;
-int GOT_NOTES[] = {NOTE_G4,NOTE_C4,NOTE_DS4,NOTE_F4,
+short int notePointer ;
+short int GOT_Number = 67;
+short unsigned int GOT_NOTES[] = {NOTE_G4,NOTE_C4,NOTE_DS4,NOTE_F4,
                NOTE_G4,NOTE_C4,NOTE_DS4,NOTE_F4,
                NOTE_G4,NOTE_C4,NOTE_DS4,NOTE_F4,
                NOTE_G4,NOTE_C4,NOTE_DS4,NOTE_F4,
@@ -119,7 +119,7 @@ int GOT_NOTES[] = {NOTE_G4,NOTE_C4,NOTE_DS4,NOTE_F4,
 
 
                
-int GOT_LENGHTS[] = {500,500,250,250,
+short unsigned int GOT_LENGHTS[] = {500,500,250,250,
                  500,500,250,250,
                  500,500,250,250,
                  500,500,250,250,
